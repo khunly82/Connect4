@@ -1,9 +1,15 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.SignalR;
 
 namespace Connect4.API.Hubs
 {
     public class MessageHub : Hub
     {
+        public void SendMessage(string message)
+        {
+            Clients.All.SendAsync("message", message);
+        }
+
         public override Task OnConnectedAsync()
         {
             // envoyer à la personne qui vient de se connecter
