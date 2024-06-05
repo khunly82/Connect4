@@ -33,5 +33,6 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.MapHub<MessageHub>("ws/message");
+app.MapHub<MessageHub>("ws/game");
 
 app.Run();
