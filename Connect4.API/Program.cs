@@ -1,4 +1,5 @@
 using Connect4.API.Hubs;
+using Connect4.API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,8 @@ builder.Services.AddCors(b => b.AddDefaultPolicy(o =>
     o.AllowAnyMethod();
 }));
 
+builder.Services.AddSingleton<TableService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -25,8 +28,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-
 
 app.UseAuthorization();
 
