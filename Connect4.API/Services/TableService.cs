@@ -10,6 +10,7 @@ namespace Connect4.API.Services
             TableBO table = new TableBO();
             table.Name = Guid.NewGuid().ToString();
             table.YellowPlayer = player;
+            Tables.Add(table);
             return table;
         }
 
