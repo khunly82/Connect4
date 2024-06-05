@@ -2,7 +2,7 @@
 {
     public class Connect4BO
     {
-        private Color[,] _grid = new Color[7,6];
+        public Color[,] Grid { get; } = new Color[7,6];
 
         public Color Turn { get; private set; } = Color.Yellow;
 
@@ -13,7 +13,7 @@
             {
                 throw new Exception("This column is full");
             }
-            _grid[col, (int)row] = Turn;
+            Grid[col, (int)row] = Turn;
             Turn = Turn == Color.Red ? Color.Yellow : Color.Red;
             // Turn = (Color)(((int)Turn) * - 1);
         }
@@ -27,7 +27,7 @@
         {
             return Enumerable
                 .Range(0, 6)
-                .FirstOrDefault(y => _grid[col, y] == Color.None);
+                .FirstOrDefault(y => Grid[col, y] == Color.None);
             //for(int y = 0; y < 6; y++)
             //{
             //    if(_grid[col, y] == Color.None)

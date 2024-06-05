@@ -9,21 +9,26 @@ namespace Connect4.API.Hubs
     {
         public void Create(string name)
         {
-            tableService.CreateTable(name);
+            TableBO table = tableService.CreateTable(name);
+            Groups.AddToGroupAsync(Context.ConnectionId, table.Name);
             Clients.All.SendAsync("AllTables", tableService.Tables.Select(t => new TableDTO(t)));
+            Clients.Group(table.Name).SendAsync("CurrentGame", new TableDetailledDTO(table));
         }
 
         public void Join(JoinTableDTO dto)
         {
-            tableService.Join(dto.TableName, dto.PlayerName);
+            TableBO table = tableService.Join(dto.TableName, dto.PlayerName);
+            Groups.AddToGroupAsync(Context.ConnectionId, table.Name);
             Clients.All.SendAsync("AllTables", tableService.Tables.Select(t => new TableDTO(t)));
+            Clients.Group(table.Name).SendAsync("CurrentGame", new TableDetailledDTO(table));
         }
 
-        //public void Play(PlayDTO dto)
-        //{
-        //    TableBO table = tableService.GetByName(dto.TableName);
-        //    table.Grid.Play(dto.Col);
-        //}
+        public void Play(PlayDTO dto)
+        {
+            TableBO table = tableService.GetByName(dto.TableName);
+            table.Grid.Play(dto.Col);
+            Clients.Group(table.Name).SendAsync("CurrentGame", new TableDetailledDTO(table));
+        }
 
         public override async Task OnConnectedAsync()
         {
