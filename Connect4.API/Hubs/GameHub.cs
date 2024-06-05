@@ -24,5 +24,10 @@ namespace Connect4.API.Hubs
         //    TableBO table = tableService.GetByName(dto.TableName);
         //    table.Grid.Play(dto.Col);
         //}
+
+        public override async Task OnConnectedAsync()
+        {
+            await Clients.Caller.SendAsync("AllTables", tableService.Tables.Select(t => new TableDTO(t)));
+        }
     }
 }
