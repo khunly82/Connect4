@@ -19,10 +19,10 @@ namespace Connect4.API.Hubs
             Clients.All.SendAsync("AllTables", tableService.Tables.Select(t => new TableDTO(t)));
         }
 
-        public void Play(PlayDTO dto)
-        {
-            TableBO table = tableService.GetByName(dto.TableName);
-            table.Grid.Play(dto.Col);
-        }
+        //public void Play(PlayDTO dto)
+        //{
+        //    TableBO table = tableService.GetByName(dto.TableName);
+        //    table.Grid.Play(dto.Col);
+        //}
     }
 }
